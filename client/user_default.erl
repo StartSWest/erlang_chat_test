@@ -44,14 +44,23 @@ help() ->
     "> Available commands:~n"
     "-----------------------------~n"
     "- 'login(<User>).': Logs in a user to the server.~n~n"
+
     "- 'chat_with(<TargeUser>).': Sends a chat request to a target user. "
     "Returns a chat id that both users can use to chat with each other.~n~n"
+
     "- 'send(<ChatId>, <Message>).': Sends a message to the other user "
     "involved in the chat request created by 'chat_with'.~n~n"
+
+    "- 'sendg(, ).': Sends a message all users in the group.~n~n"
+
     "- 'create_group(<GroupName>).': Creates a chat group to send messages "
     "to many users at the same time. See 'add_to_group', 'sendg',~n~n"
+    
     "- 'add_to_group(<GroupName>, <User>).': Adds a user to a chat group.~n~n"
+
     "- 'remove_from_group(<GroupName>, <User>).': Removes a user from a "
     "chat group.~n~n"
+
     "- 'logout().': Logs out the current user from the server.~n~n"
+  
     "- 'help().': Shows this help.~n").
