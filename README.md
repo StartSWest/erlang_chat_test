@@ -94,21 +94,21 @@ take over when the other goes down.
 
 #### Available chat client commands/functions.
 
-- 'login(<User>).': Logs in a user to the server.
+- 'login(User).': Logs in a user to the server.
 
-- 'chat_with(<TargeUser>).': Sends a chat request to a target user. Returns a chat id that both users can use to chat
+- 'chat_with(TargeUser).': Sends a chat request to a target user. Returns a chat id that both users can use to chat
    with each other.
 
-- 'send(<ChatId>, <Message>).': Sends a message to the other user involved in the chat request created by 'chat_with'.
+- 'send(ChatId, Message).': Sends a message to the other user involved in the chat request created by 'chat_with'.
 
-- 'sendg(<GroupName>, <Message>).': Sends a message all users in the group.
+- 'sendg(GroupName, Message).': Sends a message all users in the group.
 
-- 'create_group(<GroupName>).': Creates a chat group to send messages to many users at the same time. See 'add_to_group'
+- 'create_group(GroupName).': Creates a chat group to send messages to many users at the same time. See 'add_to_group'
   and 'sendg'.
 
-- 'add_to_group(<GroupName>, <User>).': Adds a user to a chat group.
+- 'add_to_group(GroupName, User).': Adds a user to a chat group.
 
-- 'remove_from_group(<GroupName>, <User>).': Removes a user from a chat group.
+- 'remove_from_group(GroupName, User).': Removes a user from a chat group.
 
 - 'logout().': Logs out the current user from the server.
 
