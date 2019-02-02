@@ -1,12 +1,20 @@
 # Installation guide for erlang chat test
 
-## Installation on Ubuntu
+## Installation on Ubuntu 18.04
 
-### 1. Make sure git is installed. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+### 1. Prerequeriments
 
-### 2. Make sure erlang is installed. http://www.erlang.org/downloads
+- Make sure git is installed. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-### 3. Clone the repository and compile the sources.
+- Make sure erlang is installed. http://www.erlang.org/downloads
+
+- gedit
+> sudo apt install gedit
+
+- gnome-terminal
+> sudo apt install gnome-terminal
+
+### 2. Clone the repository and compile the sources.
 
 > git clone https://github.com/StartSWest/erlang_chat_test.git
 
@@ -14,7 +22,7 @@
 
 > ./compile
 
-### 4. Editing configurations
+### 3. Editing configurations
 
 #### Server configuration
 
@@ -52,7 +60,7 @@ server.
 The following {server_cookie, 'secure123'} defines the cookie that will be used to connect to the server. See
 section: 5. Starting the servers.
 
-### 5. Starting the main and backup servers
+### 4. Starting the main and backup servers
 
 In order to create multiple terminals/consoles the command 'gnome-terminal -- <command>' is used inside the following
 bash files.
@@ -81,7 +89,7 @@ Type the following many times to get as many clients as you want.
 
 > ./start-client
 
-# Tests
+### 6. Dyalizer, xref and tests
 
 Currently on development
 
