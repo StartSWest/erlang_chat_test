@@ -37,14 +37,14 @@ Edit main and backup servers name/address to match your system:
 {sync_nodes_optional, ['backup_server@192.168.1.103']},
 
 This uses fully qualified node names but you can use short-names too.
-See client/config/client.config to change the 'server_name_type' to allow the client to connect to the server using
+See client/config/client.config to change the 'server_name_type' to allow clients to connect to the server using
 short-names.
 
 #### Client configuration
 
 > gedit client/config/client.config
 
-Make {server_name, 'main_server@192.168.1.103'} matches your main or backup server node address. 
+Make {server_name, 'main_server@192.168.1.103'} match your main or backup server node address. 
 
 This option {server_name_type, longnames} specifies if you are using fully qualified names or short-names in the
 server.
@@ -71,7 +71,7 @@ short-names.
 
 The same happens with server-backup script.
 
-> gedit serve-main
+> gedit serve-backup
 
 Edit to mach your system backup server address.
 
