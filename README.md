@@ -101,6 +101,8 @@ take over when the other goes down.
 
 - 'send(<ChatId>, <Message>).': Sends a message to the other user involved in the chat request created by 'chat_with'.
 
+- 'sendg(<GroupName>, <Message>).': Sends a message all users in the group.
+
 - 'create_group(<GroupName>).': Creates a chat group to send messages to many users at the same time. See 'add_to_group'
   and 'sendg'.
 
