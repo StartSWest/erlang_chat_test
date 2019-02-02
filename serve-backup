@@ -1,0 +1,8 @@
+#!/bin/bash                                                                     
+
+cd server/
+echo starting backup server.
+gnome-terminal -- erl -noshell -name backup_server@192.168.1.103 -config config/backup -setcookie secure123 -s chat_server
+cd ..
+
+

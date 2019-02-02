@@ -23,7 +23,6 @@
 %%====================================================================
 
 start() ->
-  observer:start(),
   io:format("~n~n> Distributed server node started.~n"),
   ok = application:start(chat_server).
 
