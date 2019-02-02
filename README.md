@@ -81,3 +81,37 @@ Type the following many times to get as many clients as you want.
 
 > ./start-client
 
+# Tests
+
+Currently on development
+
+# How it works
+
+In the current architecture there is no data persistence if any of the servers goes down. A second server will take 
+over the application and start it clean without no data. The users get disconnected from the server if they where 
+connected to the server that went down. A second client/config/clientb.config configuration is provided in this example 
+to start clients that will connect to the backup server. For this kind of setup to work as expected a proxy must be
+configured in front of the servers so the clients always connect to the same address regardless of which server will
+take over when the other goes down.
+
+#### Available chat client commands/functions.
+
+- 'login(User).': Logs in a user to the server.
+
+- 'chat_with(TargeUser).': Sends a chat request to a target user. Returns a chat id that both users can use to chat
+   with each other.
+
+- 'send(ChatId, Message).': Sends a message to the other user involved in the chat request created by 'chat_with'.
+
+- 'sendg(GroupName, Message).': Sends a message all users in the group.
+
+- 'create_group(GroupName).': Creates a chat group to send messages to many users at the same time. See 'add_to_group'
+  and 'sendg'.
+
+- 'add_to_group(GroupName, User).': Adds a user to a chat group.
+
+- 'remove_from_group(GroupName, User).': Removes a user from a chat group.
+
+- 'logout().': Logs out the current user from the server.
+
+- 'help().': Shows this help.
