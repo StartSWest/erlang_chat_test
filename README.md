@@ -81,7 +81,9 @@ Type the following many times to get as many clients as you want.
 
 > ./start-client
 
+# Tests
 
+Currently on development
 
 # How it works
 
