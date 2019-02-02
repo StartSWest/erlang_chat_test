@@ -82,6 +82,7 @@ Type the following many times to get as many clients as you want.
 > ./start-client
 
 
+
 # How it works
 
 In the current architecture there is no data persistence if any of the servers goes down. A second server will take 
