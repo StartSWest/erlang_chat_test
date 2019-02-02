@@ -14,7 +14,7 @@
 - gnome-terminal
 > sudo apt install gnome-terminal
 
-### 2. Clone the repository and compile the sources.
+### 2. Clonning the repository and compiling the sources.
 
 > git clone https://github.com/StartSWest/erlang_chat_test.git
 
