@@ -84,12 +84,12 @@ Type the following many times to get as many clients as you want.
 
 # How it works
 
-In the current arquitecture there is no data persistence if any of the servers goes down. A second server will take 
+In the current architecture there is no data persistence if any of the servers goes down. A second server will take 
 over the application and start it clean without no data. The users get disconnected from the server if they where 
-connected the server that went down. A second client/config/clientb.config configuration is provided in this example 
-to start clients that will connect to the backup server. For this kind of setup to work as spected a proxy must be
+connected to the server that went down. A second client/config/clientb.config configuration is provided in this example 
+to start clients that will connect to the backup server. For this kind of setup to work as expected a proxy must be
 configured in front of the servers so the clients always connect to the same address regardless of which server will
-take over when the other gets down.
+take over when the other goes down.
 
 #### Available chat client commands/functions.
 
