@@ -51,13 +51,14 @@ gedit server/config/backup.config
 Edit main and backup servers name/address to match your system:
 
 *{distributed, [{chat_server, ['main_server@192.168.1.103', {'backup_server@192.168.1.103'}]}]},
+
  {sync_nodes_optional, ['backup_server@192.168.1.103']},*
 
 This uses fully qualified node names but you can use short-names too. See `client.config` to change the *server_name_type* to allow clients to connect to the server using short-names.
 
 #### Client configuration
 
-For editing configurations type:
+To edit the client configuration type:
 
 ```
 gedit client/config/client.config
@@ -71,9 +72,15 @@ The following *{server_cookie, 'secure123'}* defines the cookie that will be use
 
 There are also other client configurations provided in this example, such as `clientb.config` to start a client that will connect to the backup server.
 
+To edit it type
+
+```
+gedit client/config/clientb.config
+```
+
 ### 4. Starting the main and backup servers
 
-In order to create multiple terminals/consoles the command *gnome-terminal -- <command>* is used inside the following bash files.
+In order to create multiple terminals / consoles, the command *gnome-terminal -- erl ...* is used inside the following bash files.
 
 Use this command to automatically start both servers:
 
@@ -97,15 +104,19 @@ Before executing this commands first edit them to change the server node address
 gedit serve | gedit serve-main | gedit serve-backup
 ```
 
-Change the option *-name main_server@192.168.1.103* parameter to match your system server address. You can instead use *-sname* to configure short-name address type. See *server_name_type* in `client.config` to allow clients to connect to the server using short-names.
+Change the parameter *-name main_server@192.168.1.103* to match your system server address. You can instead use *-sname* to configure short-name address type. See *server_name_type* in `client.config` to allow clients to connect to the server using short-names.
 
 ### 5. Starting the clients
 
-Try the following commands many times to get as many clients A and B as you want. A clients will try to connect to the main server according with its configuration in *./client/config/client.config* and B clients will connect to the backup server and will use *./client/config/clientb.config* configuration file.
+Try the following commands many times to get as many clients A and B as you want. A clients will try to connect to the main server according with its configuration in `client.config` and B clients will connect to the backup server and will use `clientb.config` configuration file.
 
-> ./start-client
+```
+./start-client
+```
 
-> ./start-clientb
+```
+./start-clientb
+```
 
 ### 6. Tests with coverage
 
