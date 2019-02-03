@@ -2,94 +2,137 @@
 
 ## Installation on Ubuntu 18.04
 
-### 1. Prerequeriments
+### 1. Pre-Requirements
 
 - Make sure git is installed. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 - Make sure erlang is installed. http://www.erlang.org/downloads
 
 - gedit
-> sudo apt install gedit
+```
+sudo apt install gedit
+```
 
 - gnome-terminal
-> sudo apt install gnome-terminal
+```
+sudo apt install gnome-terminal
+```
 
-### 2. Clonning the repository and compiling the sources.
+### 2. Cloning the repository and compiling the sources.
 
-> git clone https://github.com/StartSWest/erlang_chat_test.git
-
-> cd erlang_chat_test/
-
-> ./compile
+```
+git clone https://github.com/StartSWest/erlang_chat_test.git
+```
+```
+cd erlang_chat_test/
+```
+```
+./compile
+```
 
 ### 3. Editing configurations
 
 #### Server configuration
 
-In erlang distributed system two different distributed nodes have different configurations.
-Two configurations files are provided in this example for main and backup servers.
+In erlang distributed system two different distributed nodes have different configurations. Two configurations files are provided in this example for main and backup servers.
 
-The 'main.config' configuration setups the main server but also sets the option {sync_nodes_optional, ['backup_server@192.168.1.103']} to the backup server node address. A small change has to be made for 'backup.config'
-file to set the {sync_nodes_optional, ['main_server@192.168.1.103']} to the main server node address.
+The `main.config` configuration setups the main server but also sets the option *{sync_nodes_optional, ['backup_server@192.168.1.103']}* to the backup server node address. A small change has to be made for `backup.config` file to set the *{sync_nodes_optional, ['main_server@192.168.1.103']}* to the main server node address.
 
 For editing configurations type:
 
-> gedit server/config/main.config
+```
+gedit server/config/main.config
+```
 
-> gedit server/config/backup.config
+```
+gedit server/config/backup.config
+```
 
 Edit main and backup servers name/address to match your system:
 
-{distributed, [{chat_server, ['main_server@192.168.1.103', {'backup_server@192.168.1.103'}]}]},
+*{distributed, [{chat_server, ['main_server@192.168.1.103', {'backup_server@192.168.1.103'}]}]},
 
-{sync_nodes_optional, ['backup_server@192.168.1.103']},
+ {sync_nodes_optional, ['backup_server@192.168.1.103']},*
 
-This uses fully qualified node names but you can use short-names too.
-See client/config/client.config to change the 'server_name_type' to allow clients to connect to the server using
-short-names.
+This uses fully qualified node names but you can use short-names too. See `client.config` to change the *server_name_type* to allow clients to connect to the server using short-names.
 
 #### Client configuration
 
-> gedit client/config/client.config
+To edit the client configuration type:
 
-Make {server_name, 'main_server@192.168.1.103'} match your main or backup server node address. 
+```
+gedit client/config/client.config
+```
 
-This option {server_name_type, longnames} specifies if you are using fully qualified names or short-names in the
-server.
+Make sure *{server_name, 'main_server@192.168.1.103'}* matches your main or backup server node address.
 
-The following {server_cookie, 'secure123'} defines the cookie that will be used to connect to the server. See
-section: 5. Starting the servers.
+This option *{server_name_type, longnames}* specifies if you are using fully qualified names or short-names in the server.
+
+The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *4. Starting the servers.*
+
+There are also other client configurations provided in this example, such as `clientb.config` to start a client that will connect to the backup server.
+
+To edit it type
+
+```
+gedit client/config/clientb.config
+```
 
 ### 4. Starting the main and backup servers
 
-In order to create multiple terminals/consoles the command 'gnome-terminal -- <command>' is used inside the following
-bash files.
+In order to create multiple terminals / consoles, the command *gnome-terminal -- erl ...* is used inside the following bash files.
 
-> ./serve-main
+Use this command to automatically start both servers:
 
-> ./serve-backup
+```
+./serve
+```
 
-Before executing this two commands first edit them to change the server node address to match your current system.
+Use each individual command to start main or backup server individually.
 
-> gedit serve-main
+```
+./serve-main
+```
 
-Change the -name main_server@192.168.1.103 parameter to match your system server address. You can use -sname to use
-short-names. See 'server_name_type' in client/config/client.config to allows clients to connect to the server using
-short-names.
+```
+./serve-backup
+```
 
-The same happens with server-backup script.
+Before executing this commands first edit them to change the server node address to match your current system.
 
-> gedit serve-backup
+```
+gedit serve | gedit serve-main | gedit serve-backup
+```
 
-Edit to mach your system backup server address.
+Change the parameter *-name main_server@192.168.1.103* to match your system server address. You can instead use *-sname* to configure short-name address type. See *server_name_type* in `client.config` to allow clients to connect to the server using short-names.
 
 ### 5. Starting the clients
 
-Type the following many times to get as many clients as you want.
+Try the following commands many times to get as many clients A and B as you want. A clients will try to connect to the main server according with its configuration in `client.config` and B clients will connect to the backup server and will use `clientb.config` configuration file.
 
-> ./start-client
+```
+./start-client
+```
 
-### 6. Dyalizer, xref and tests
+```
+./start-clientb
+```
+
+### 6. Tests and coverage
+
+To run tests just make sure you have both main and backup servers running `./serve` then you can type the following command:
+
+```
+./run-tests
+```
+
+This will open two terminals, each with a chat client and the testing will start. Both will try to login to both servers, one will login to main server and the other to the backup server and they will be able to interact with each other, create chat, groups and send messages. This also test distribution.
+
+#### Coverage
+
+You can see the test coverage by opening the web page generated by the test framework after the test is finished located in `tests_results/index.html`. You must click on *client.tests.tests_SUITE* link and then on *Coverage log* link.
+
+### 7. Dialyzer and xref
 
 Currently on development
 
@@ -106,7 +149,7 @@ take over when the other goes down.
 
 - 'login(User).': Logs in a user to the server.
 
-- 'chat_with(TargeUser).': Sends a chat request to a target user. Returns a chat id that both users can use to chat
+- 'chat_with(TargetUser).': Sends a chat request to a target user. Returns a chat id that both users can use to chat
    with each other.
 
 - 'send(ChatId, Message).': Sends a message to the other user involved in the chat request created by 'chat_with'.
