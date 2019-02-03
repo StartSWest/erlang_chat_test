@@ -1,0 +1,7 @@
+#!/bin/bash                                                                     
+
+cd client/
+echo Starting chat clients.
+gnome-terminal -- erl -config config/clientsn -s chat_client -s tests_helper auto_login_for_tests
+gnome-terminal -- erl -config config/clientbsn -s chat_client -s tests_helper run_tests
+cd ..

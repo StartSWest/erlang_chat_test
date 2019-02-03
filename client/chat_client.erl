@@ -8,9 +8,10 @@
 -module(chat_client).
 -behaviour(application).
 
+-export([start/0]).
+
 %% API
 -export([
-  start/0,
   login/1,
   logout/0,
   users/0,
@@ -201,17 +202,14 @@ sendg(GroupName, Message) when is_atom(GroupName), is_list(Message) ->
 
 create_group(GroupName) when is_atom(GroupName) ->
   case chat_client_gs:create_group(GroupName) of
+    ok -> ok;
     {ok, {group_name, GroupName}} = Group ->
       io:format(
         "> A new chat group was created and current user added.~n"
         "You can now use 'add_to_group(~p, <User>).' and "
         "'sendg(~p, <Message>).' to send messages to all users in the group.~n",
         [GroupName, GroupName]),
-      Group;
-    {error, already_exists_group} = Error ->
-      io:format(
-        "*** ERROR: Group '~p' already exists!~n", [GroupName]),
-      Error
+      Group
   end.
 
 %%--------------------------------------------------------------------

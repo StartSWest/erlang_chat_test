@@ -210,8 +210,7 @@ handle_call({create_group, GroupName, FromUser}, _From, State) ->
      f(e(qlc:q([Group || {Name, _} = Group <- ets:table(GroupsTable),
                 Name == GroupName])))
   of
-    {GroupName, _} ->
-      {error, already_exists_group};
+    {GroupName, _} -> ok;
     _ ->
       true = ets:insert(GroupsTable, {GroupName, [FromUser]}),
       {ok, {group_name, GroupName}}
@@ -255,7 +254,14 @@ handle_call({remove_from_group, GroupName, User}, _From, State) ->
     {GroupName, Users} ->
       case lists:member(User, Users) of
         true ->
-          true = ets:insert(GroupsTable, {GroupName, Users -- [User]}),
+          NewUsers = Users -- [User],
+          case NewUsers of
+            [] ->
+              % if the group gets empty remove it.
+              true = ets:delete(GroupsTable, GroupName);
+            _ ->
+              true = ets:insert(GroupsTable, {GroupName, NewUsers})
+          end,
           {ok, removed};
         false ->
           ok
@@ -321,6 +327,7 @@ handle_info({'DOWN', _, process, ClientPid, _Reason}, State) ->
   % gets the user that went down.
   User = f(e(qlc:q([U || {P, U} <- ets:table(UsersTable), P == ClientPid]))),
   
+  % removes group if it gets empty.
   case
     f(e(qlc:q([Group || {_, Users} = Group <- ets:table(GroupsTable),
                lists:member(User, Users)])))
