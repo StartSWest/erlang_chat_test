@@ -36,7 +36,7 @@ cd erlang_chat_test/
 
 In erlang distributed system two different distributed nodes have different configurations. Two configurations files are provided in this example for main and backup servers.
 
-The `main.config` configuration setups the main server but also sets the option `{sync_nodes_optional, ['backup_server@192.168.1.103']}` to the backup server node address. A small change has to be made for `backup.config` file to set the `{sync_nodes_optional, ['main_server@192.168.1.103']}` to the main server node address.
+The `main.config` configuration setups the main server but also sets the option *{sync_nodes_optional, ['backup_server@192.168.1.103']}* to the backup server node address. A small change has to be made for `backup.config` file to set the `{sync_nodes_optional, ['main_server@192.168.1.103']}` to the main server node address.
 
 For editing configurations type:
 
