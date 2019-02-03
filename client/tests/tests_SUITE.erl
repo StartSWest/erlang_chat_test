@@ -69,6 +69,7 @@ check_send(Config) ->
 
 check_create_group(_Config) ->
   {ok, {group_name, test_group} = GroupHandler} = create_group(test_group),
+  ok = create_group(test_group),
   {save_config, [GroupHandler]}.
 
 check_add_to_group(Config) ->

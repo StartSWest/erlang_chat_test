@@ -11,5 +11,6 @@ auto_login_for_tests() ->
 
 run_tests() ->
   file:make_dir("../tests_results"),
-  ct:run_test([{suite,"./tests/tests_SUITE"},{logdir,"../tests_results"}]),
+  ct:run_test([{suite,"./tests/tests_SUITE"},{logdir,"../tests_results"},
+               {cover, "./tests/tests.cover"}, {cover_stop, false}]),
   io:format("Tests running finished. See './tests_results/index.html'.").
