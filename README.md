@@ -36,7 +36,7 @@ cd erlang_chat_test/
 
 In erlang distributed system two different distributed nodes have different configurations. Two configurations files are provided in this example for main and backup servers.
 
-The `main.config` configuration setups the main server but also sets the option *{sync_nodes_optional, ['backup_server@192.168.1.103']}* to the backup server node address. A small change has to be made for `backup.config` file to set the `{sync_nodes_optional, ['main_server@192.168.1.103']}` to the main server node address.
+The `main.config` configuration setups the main server but also sets the option *{sync_nodes_optional, ['backup_server@192.168.1.103']}* to the backup server node address. A small change has to be made for `backup.config` file to set the *{sync_nodes_optional, ['main_server@192.168.1.103']}* to the main server node address.
 
 For editing configurations type:
 
@@ -50,31 +50,30 @@ gedit server/config/backup.config
 
 Edit main and backup servers name/address to match your system:
 
-`{distributed, [{chat_server, ['main_server@192.168.1.103', {'backup_server@192.168.1.103'}]}]},
- {sync_nodes_optional, ['backup_server@192.168.1.103']},`
+*{distributed, [{chat_server, ['main_server@192.168.1.103', {'backup_server@192.168.1.103'}]}]},
+ {sync_nodes_optional, ['backup_server@192.168.1.103']},*
 
-This uses fully qualified node names but you can use short-names too. See `client.config` to change the `server_name_type` to allow clients to connect to the server using short-names.
+This uses fully qualified node names but you can use short-names too. See `client.config` to change the *server_name_type* to allow clients to connect to the server using short-names.
 
 #### Client configuration
+
+For editing configurations type:
 
 ```
 gedit client/config/client.config
 ```
-```
-gedit client/config/clientb.config
-```
 
-Make `{server_name, 'main_server@192.168.1.103'}` match your main or backup server node address.
+Make sure *{server_name, 'main_server@192.168.1.103'}* matches your main or backup server node address.
 
-This option `{server_name_type, longnames}` specifies if you are using fully qualified names or short-names in the server.
+This option *{server_name_type, longnames}* specifies if you are using fully qualified names or short-names in the server.
 
-The following `{server_cookie, 'secure123'}` defines the cookie that will be used to connect to the server. See section: 5. Starting the servers.
+The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *4. Starting the servers.*
 
 There are also other client configurations provided in this example, such as `clientb.config` to start a client that will connect to the backup server.
 
 ### 4. Starting the main and backup servers
 
-In order to create multiple terminals/consoles the command `gnome-terminal -- <command>` is used inside the following bash files.
+In order to create multiple terminals/consoles the command *gnome-terminal -- <command>* is used inside the following bash files.
 
 Use this command to automatically start both servers:
 
@@ -92,13 +91,13 @@ Use each individual command to start main or backup server individually.
 ./serve-backup
 ```
 
-Before executing this two commands first edit them to change the server node address to match your current system.
+Before executing this commands first edit them to change the server node address to match your current system.
 
 ```
 gedit serve | gedit serve-main | gedit serve-backup
 ```
 
-Change the `-name main_server@192.168.1.103` parameter to match your system server address. You can use `-sname` to use short-names. See `server_name_type` in `client.config` to allow clients to connect to the server using short-names.
+Change the option *-name main_server@192.168.1.103* parameter to match your system server address. You can instead use *-sname* to configure short-name address type. See *server_name_type* in `client.config` to allow clients to connect to the server using short-names.
 
 ### 5. Starting the clients
 
