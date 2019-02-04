@@ -5,7 +5,8 @@
 ### 1. Pre-Requirements
 
 - Make sure erlang is installed and in path. http://www.erlang.org/downloads
-  NOTE: You can test it type *erl* in the terminal of your operating system.
+
+  NOTE: You can test it by typing *erl* in the terminal of your operating system.
  
 ### 2. Downloading the test and compiling the sources.
 
