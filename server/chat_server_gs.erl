@@ -15,12 +15,10 @@
   init/1,
   handle_call/3,
   handle_cast/2,
-  handle_info/2,
-  terminate/2,
-  code_change/3]).
+  handle_info/2]).
 
 -record(state, {
-  database::maps
+  database::map()
 }).
 
 %%====================================================================
@@ -44,14 +42,12 @@ start_link(Args) ->
     {ok, State}
   | {ok, State, Timeout}
   | {ok, State, hibernate}
-  | {ok, State, {continue, Continue}}
   | {stop, Reason}
   | ignore
  when
     Args::term(),
     State::term(),
     Timeout::timeout(),
-    Continue::term(),
     Reason::term().
 
 init(_Args) ->
@@ -72,12 +68,12 @@ init(_Args) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec handle_call(Request, From, State) ->
-    {reply, Reply, NewState, Timeout}
+    {reply, Reply, NewState}
+  | {reply, Reply, NewState, Timeout}
   | {reply, Reply, NewState, hibernate}
-  | {reply, Reply, NewState, {continue, Continue}}
-  | {noreply, NewState} | {noreply, NewState, Timeout}
+  | {noreply, NewState}
+  | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, Reply, NewState}
   | {stop, Reason, NewState}
  when
@@ -87,7 +83,6 @@ init(_Args) ->
     State::#state{},
     NewState::#state{},
     Timeout::timeout() | infinity,
-    Continue::term(),
     Reason::term().
 
 %% @private
@@ -268,12 +263,7 @@ handle_call({remove_from_group, GroupName, User}, _From, State) ->
       end;
     _ -> {error, no_group}
   end,
-  {reply, R, State};
-
-handle_call(_Request, _From, State) ->
-  Reply = not_implemented,
-  NewState = State,
-  {reply, Reply, NewState}.
+  {reply, R, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -285,14 +275,12 @@ handle_call(_Request, _From, State) ->
     {noreply, NewState}
   | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, NewState}
  when
     Request::term(),
     State::#state{},
     NewState::#state{},
     Timeout::timeout(),
-    Continue::term(),
     Reason::term().
 
 handle_cast(_Request, State) ->
@@ -309,14 +297,12 @@ handle_cast(_Request, State) ->
     {noreply, NewState}
   | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, NewState}
  when
     Info::timeout | term(),
     State::term(),
     NewState::term(),
     Timeout::timeout(),
-    Continue::term(),
     Reason::normal | term().
 
 handle_info({'DOWN', _, process, ClientPid, _Reason}, State) ->
@@ -380,42 +366,6 @@ handle_info(Info, State) ->
   io:format("~p", [Info]),
   NewState = State,
   {noreply, NewState}.
-
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handles terminate messages.
-%% @end
-%%--------------------------------------------------------------------
--spec terminate(Reason, State) ->
-    ok
- when
-    Reason::normal | shutdown | {shutdown, term()} | term(),
-    State::term().
-
-terminate(_Reason, _State) ->
-  ok.
-
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handles code change messages.
-%% @end
-%%--------------------------------------------------------------------
--spec code_change(OldVsn, State, Extra) ->
-    {ok, NewState}
-  | {error, Reason}
- when
-    OldVsn::Vsn | {down, Vsn},
-    Vsn::term(),
-    State::term(),
-    NewState::term(),
-    Extra::term(),
-    Reason::term().
-
-code_change(_OldVsn, State, _Extra) ->
-  NewState = State,
-  {ok, NewState}.
 
 %%====================================================================
 %% Private functions

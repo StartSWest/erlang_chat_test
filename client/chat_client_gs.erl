@@ -27,9 +27,7 @@
   init/1,
   handle_call/3,
   handle_cast/2,
-  handle_info/2,
-  terminate/2,
-  code_change/3]).
+  handle_info/2]).
 
 -record(state, {
   user::atom()
@@ -121,10 +119,12 @@ chat_with(TargetUser) when is_atom(TargetUser) ->
 %%--------------------------------------------------------------------
 -spec send(ChatId, Message) ->
     {ok, {message_sent_to, User}}
+  | {error, Reason}
  when
     ChatId::atom(),
     Message::string(),
-    User::atom().
+    User::atom(),
+    Reason::term().
 
 send(ChatId, Message) when is_atom(ChatId), is_list(Message) ->
   gen_server:call(?MODULE, {send_msg, ChatId, Message}).
@@ -136,9 +136,11 @@ send(ChatId, Message) when is_atom(ChatId), is_list(Message) ->
 %%--------------------------------------------------------------------
 -spec sendg(GroupName, Message) ->
     ok
+  | {error, Reason}
  when
     GroupName::atom(),
-    Message::string().
+    Message::string(),
+    Reason::term().
 
 sendg(GroupName, Message) when is_atom(GroupName), is_list(Message) ->
   gen_server:call(?MODULE, {send_group_msg, GroupName, Message}).
@@ -149,7 +151,8 @@ sendg(GroupName, Message) when is_atom(GroupName), is_list(Message) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec create_group(GroupName) ->
-    {ok, {group_name, GroupName}}
+    ok
+  |  {ok, {group_name, GroupName}}
   | {error, Reason}
  when
     GroupName::atom(),
@@ -165,6 +168,7 @@ create_group(GroupName) when is_atom(GroupName) ->
 %%--------------------------------------------------------------------
 -spec add_to_group(GroupName, User) ->
     ok
+  | {ok, added}
   | {error, Reason}
  when
     GroupName::atom(),
@@ -181,6 +185,7 @@ add_to_group(GroupName, User) when is_atom(GroupName), is_atom(User) ->
 %%--------------------------------------------------------------------
 -spec remove_from_group(GroupName, User) ->
     ok
+  | {ok, removed}
   | {error, Reason}
  when
     GroupName::atom(),
@@ -207,14 +212,12 @@ start_link(Args) ->
     {ok, State}
   | {ok, State, Timeout}
   | {ok, State, hibernate}
-  | {ok, State, {continue, Continue}}
   | {stop, Reason}
   | ignore
  when
     Args::term(),
     State::term(),
     Timeout::timeout(),
-    Continue::term(),
     Reason::term().
 
 init(_Args) ->
@@ -229,12 +232,12 @@ init(_Args) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec handle_call(Request, From, State) ->
-    {reply, Reply, NewState, Timeout}
+    {reply, Reply, NewState} 
+  | {reply, Reply, NewState, Timeout}
   | {reply, Reply, NewState, hibernate}
-  | {reply, Reply, NewState, {continue, Continue}}
-  | {noreply, NewState} | {noreply, NewState, Timeout}
+  | {noreply, NewState}
+  | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, Reply, NewState}
   | {stop, Reason, NewState}
  when
@@ -244,7 +247,6 @@ init(_Args) ->
     State::#state{},
     NewState::#state{},
     Timeout::timeout() | infinity,
-    Continue::term(),
     Reason::term().
 
 %% @private
@@ -342,12 +344,7 @@ handle_call({add_to_group, GroupName, User}, _From, State) ->
 %% Removes a user from a chat group.
 handle_call({remove_from_group, GroupName, User}, _From, State) ->
   R = gen_server:call({global, ?SERVER}, {remove_from_group, GroupName, User}),
-  {reply, R, State};
-
-handle_call(_Request, _From, State) ->
-  Reply = reply,
-  NewState = State,
-  {reply, Reply, NewState}.
+  {reply, R, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -359,14 +356,12 @@ handle_call(_Request, _From, State) ->
     {noreply, NewState}
   | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, NewState}
  when
     Request::term(),
     State::#state{},
     NewState::#state{},
     Timeout::timeout(),
-    Continue::term(),
     Reason::term().
 
 handle_cast(_Request, State) ->
@@ -383,14 +378,12 @@ handle_cast(_Request, State) ->
     {noreply, NewState}
   | {noreply, NewState, Timeout}
   | {noreply, NewState, hibernate}
-  | {noreply, NewState, {continue, Continue}}
   | {stop, Reason, NewState}
  when
     Info::timeout | term(),
     State::term(),
     NewState::term(),
     Timeout::timeout(),
-    Continue::term(),
     Reason::normal | term().
 
 handle_info({chat_request, FromUser, ChatId}, State) ->
@@ -425,42 +418,6 @@ handle_info(Info, State) ->
   io:format("~p", [Info]),
   NewState = State,
   {noreply, NewState}.
-
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handles terminate messages.
-%% @end
-%%--------------------------------------------------------------------
--spec terminate(Reason, State) ->
-    ok
- when
-    Reason::normal | shutdown | {shutdown, term()} | term(),
-    State::term().
-
-terminate(_Reason, _State) ->
-  ok.
-
-%%--------------------------------------------------------------------
-%% @private
-%% @doc
-%% Handles code change messages.
-%% @end
-%%--------------------------------------------------------------------
--spec code_change(OldVsn, State, Extra) ->
-    {ok, NewState}
-  | {error, Reason}
- when
-    OldVsn::Vsn | {down, Vsn},
-    Vsn::term(),
-    State::term(),
-    NewState::term(),
-    Extra::term(),
-    Reason::term().
-
-code_change(_OldVsn, State, _Extra) ->
-  NewState = State,
-  {ok, NewState}.
 
 %%====================================================================
 %% Private functions

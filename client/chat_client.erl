@@ -219,6 +219,7 @@ create_group(GroupName) when is_atom(GroupName) ->
 %%--------------------------------------------------------------------
 -spec add_to_group(GroupName, User) ->
     ok
+  | {ok, added}
   | {error, Reason}
  when
     GroupName::atom(),
@@ -253,6 +254,7 @@ add_to_group(GroupName, User) when is_atom(GroupName), is_atom(User) ->
 %%--------------------------------------------------------------------
 -spec remove_from_group(GroupName, User) ->
     ok
+  | {ok, removed}
   | {error, Reason}
  when
     GroupName::atom(),
