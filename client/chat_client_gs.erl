@@ -52,7 +52,7 @@
     Reason::term().
 
 connect(User) when is_atom(User) ->
-  gen_server:call(?MODULE, {connect, User}).
+  gen_server:call(?MODULE, {connect, User}, 10000).
 
 %%--------------------------------------------------------------------
 %% @doc
