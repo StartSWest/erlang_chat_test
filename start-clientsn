@@ -1,3 +1,0 @@
-#!/bin/bash                                                                     
-echo Starting a chat client.
-gnome-terminal -- erl -pa client -config client/config/clientsn -s chat_client

@@ -1,5 +1,0 @@
-#!/bin/bash                                                                     
-echo Starting main server.
-gnome-terminal -- erl -noshell -sname main_server -pa server -config server/config/mainsn -setcookie secure123 -s chat_server
-echo Starting backup server.
-gnome-terminal -- erl -noshell -sname backup_server -pa server -config server/config/backupsn -setcookie secure123 -s chat_server
