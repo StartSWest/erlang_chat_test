@@ -64,7 +64,7 @@ erl -pa client -config client/config/clientb -s chat_client
 
 ### 5. Tests and coverage
 
-Before running the tests make sure you have zero clients connected to the servers, you must close all terminals that are running any client or just use `logout().` on all of them. You should also make sure you have both main and backup servers running, see Section *4. Starting the main and backup servers* then open two shells one for Client A and the other for Client B then type in one shell 
+Before running the tests make sure you have zero clients connected to the servers, you must close all terminals that are running any client or just use `logout().` on all of them. You should also make sure you have both main and backup servers running, see Section *3. Starting the main and backup servers*, then open two shells one for Client A and the other for Client B then type the following in one shell:
 
 ```
 erl -pa client -config client/config/client -s chat_client -s tests_helper auto_login_for_tests
@@ -131,7 +131,7 @@ Make sure *{server_name, 'main_server@127.0.0.1'}* matches your main or backup s
 
 This option *{server_name_type, longnames}* specifies if you are using fully qualified names or short-names in the server.
 
-The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *4. Starting the servers.*
+The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *3. Starting the servers.*
 
 There are also other client configurations provided in this example, such as `clientb.config` to start a client that will connect to the backup server.
 
