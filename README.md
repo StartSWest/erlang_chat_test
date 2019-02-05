@@ -14,7 +14,7 @@
 
 2. Extract it on a desired folder.
 
-3. Enter to the folder `erlang_chat_test-master` or `erlang_chat_test` if you clonned it using git clone. If you are using the shell just type the equivalent command for your system.
+3. Enter to the folder `erlang_chat_test-master` or `erlang_chat_test`; if you clonned it using git clone. If you are using the shell just type the equivalent command for your system.
 
 ```
 cd erlang_chat_test-master/
@@ -119,17 +119,15 @@ First of all, you need to build the plt database:
 
 ```
 dialyzer --build_plt --output_plt dialyzer.plt --apps erts kernel stdlib
-
 dialyzer --add_to_plt --plt dialyzer.plt -r ./client
-
-dialyzer --add_to_plt --plt dialyzer.plt -r ./server```
+dialyzer --add_to_plt --plt dialyzer.plt -r ./server
 ```
 
 Then you can run dialyzer checks:
 
 ```
 dialyzer --plt dialyzer.plt -r ./client
-dialyzer --plt dialyzer.plt -r ./server;
+dialyzer --plt dialyzer.plt -r ./server
 ```
 
 Running xref is quite simple too:
