@@ -131,7 +131,7 @@ Make sure *{server_name, 'main_server@127.0.0.1'}* matches your main or backup s
 
 This option *{server_name_type, longnames}* specifies if you are using fully qualified names or short-names in the server.
 
-The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *4. Starting the servers.*
+The following *{server_cookie, 'secure123'}* defines the cookie that will be used to connect to the server. See section: *3. Starting the servers.*
 
 There are also other client configurations provided in this example, such as `clientb.config` to start a client that will connect to the backup server.
 
