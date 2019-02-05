@@ -64,7 +64,7 @@ erl -pa client -config client/config/clientb -s chat_client
 
 ### 5. Tests and coverage
 
-Before running the tests make sure you have zero clients connected to the servers, you must close all terminals that are running any client or just use `logout().` on all of them. You should also make sure you have both main and backup servers running, see Section *4. Starting the main and backup servers* then open two shells one for Client A and the other for Client B then type in one shell 
+Before running the tests make sure you have zero clients connected to the servers, you must close all terminals that are running any client or just use `logout().` on all of them. You should also make sure you have both main and backup servers running, see Section *3. Starting the main and backup servers* then open two shells one for Client A and the other for Client B then type in one shell 
 
 ```
 erl -pa client -config client/config/client -s chat_client -s tests_helper auto_login_for_tests
