@@ -1,6 +1,3 @@
 #!/bin/bash                                                                     
-
-cd server/
 echo Starting main server.
-gnome-terminal -- erl -noshell -name main_server@192.168.1.103 -config config/main -setcookie secure123 -s chat_server
-cd ..
+gnome-terminal -- erl -noshell -name main_server@192.168.1.103 -pa server -config server/config/main -setcookie secure123 -s chat_server

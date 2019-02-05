@@ -13,4 +13,4 @@
  %% Cross cover compilation
  %% Tag = atom(), an identifier for a test run
  %% Mod = [atom()], modules to compile for accumulated analysis
- %% {cross,[{conver1,chat_server_gs}]}.
+ %% {cross,[{cover1,chat_server_gs}]}.

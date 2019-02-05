@@ -1,8 +1,3 @@
 #!/bin/bash
-cd server/
-erl -make 
-cd ..
-cd client/
 erl -make
-cd ..
-
+erl -noshell -s make_test
