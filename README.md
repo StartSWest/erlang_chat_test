@@ -133,7 +133,7 @@ dialyzer --plt dialyzer.plt -r ./server
 Running xref is quite simple too:
 
 ```
-erl -s xref_runner
+erl -noshell -s xref_runner
 ```
 
 ## Installation on Ubuntu 18.04
