@@ -14,10 +14,10 @@
 
 2. Extract it on a desired folder.
 
-3. Enter to the folder `erlang_chat_test`. If you are using the shell just type the equivalent command for your system.
+3. Enter to the folder `erlang_chat_test-master`. If you are using the shell just type the equivalent command for your system.
 
 ```
-cd erlang_chat_test/
+cd erlang_chat_test-master/
 ```
 
 4. Build the test builder helper.
