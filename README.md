@@ -133,7 +133,7 @@ dialyzer --plt dialyzer.plt -r ./server
 Running xref is quite simple too:
 
 ```
-erl -eval 'xref:start(s), xref:add_directory(s, "./client"), xref:add_directory(s, "./server")'
+erl -s xref_runner
 ```
 
 ## Installation on Ubuntu 18.04
@@ -143,11 +143,6 @@ erl -eval 'xref:start(s), xref:add_directory(s, "./client"), xref:add_directory(
 - Make sure git is installed. https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
 - Make sure erlang is installed. http://www.erlang.org/downloads
-
-- gedit
-```
-sudo apt install gedit
-```
 
 - gnome-terminal
 ```
