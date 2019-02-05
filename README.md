@@ -14,7 +14,7 @@
 
 2. Extract it on a desired folder.
 
-3. Enter to the folder `erlang_chat_test-master`. If you are using the shell just type the equivalent command for your system.
+3. Enter to the folder `erlang_chat_test-master` or `erlang_chat_test` if you clonned it using git clone. If you are using the shell just type the equivalent command for your system.
 
 ```
 cd erlang_chat_test-master/
@@ -77,7 +77,6 @@ This will run the backup server. Remember to edit the parameter -sname to match 
 
 ```
 erl -noshell -name backup_server@192.168.1.103 -pa server -config server/config/backup -setcookie secure123 -s chat_server
-
 ```
 
 It is also possible to use *-sname* in both servers to configure short-name address type. See *server_name_type* in `client.config` to allow clients to connect to the server using short-names.
